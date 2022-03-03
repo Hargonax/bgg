@@ -11,7 +11,7 @@ public interface MainService {
 	 */
 	void showGamesNotPlayedFromUserCollection(final String userWithVotedGames, final String collectionOwner)
 			throws Exception;
-	
+
 	/**
 	 * Shows the games a user wants to play from a user collection.
 	 * 
@@ -22,5 +22,14 @@ public interface MainService {
 	 */
 	void showGamesAUserWantsToPlayFromUserCollection(final String userWantsToPlay, final String collectionOwner)
 			throws Exception;
+
+	/**
+	 * Shows the games not voted from the played games of a user.
+	 * 
+	 * @param userName User we want to check the games not voted from the played
+	 *                 list.
+	 * @throws Exception
+	 */
+	void showGamesPlayedNotVotedForAUser(final String userName) throws Exception;
 
 }

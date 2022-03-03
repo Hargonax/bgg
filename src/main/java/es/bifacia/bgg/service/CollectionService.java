@@ -33,5 +33,14 @@ public interface CollectionService {
 	 * @throws Exception
 	 */
 	List<Game> getUserWantToPlayGames(final String userName) throws Exception;
+	
+	/**
+	 * Gets the list of played games by a user.
+	 * 
+	 * @param userName User name of the user we want to obtain the played games.
+	 * @return List of played games by a user.
+	 * @throws Exception
+	 */
+	List<Game> getUserPlayedGames(final String userName) throws Exception;
 
 }

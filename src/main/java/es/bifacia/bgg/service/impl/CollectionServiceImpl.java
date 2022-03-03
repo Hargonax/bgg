@@ -48,5 +48,16 @@ public class CollectionServiceImpl implements CollectionService {
 	public List<Game> getUserWantToPlayGames(final String userName) throws Exception {
 		return this.xmlBggApiService.getUserWantToPlayGames(userName);
 	}
+	
+	/**
+	 * Gets the list of played games by a user.
+	 * 
+	 * @param userName User name of the user we want to obtain the played games.
+	 * @return List of played games by a user.
+	 * @throws Exception
+	 */
+	public List<Game> getUserPlayedGames(final String userName) throws Exception {
+		return this.xmlBggApiService.getUserPlayedGames(userName);
+	}
 
 }

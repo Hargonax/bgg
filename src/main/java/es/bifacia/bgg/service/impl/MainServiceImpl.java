@@ -53,6 +53,21 @@ public class MainServiceImpl implements MainService {
 	}
 
 	/**
+	 * Shows the games not voted from the played games of a user.
+	 * 
+	 * @param userName User we want to check the games not voted from the played
+	 *                 list.
+	 * @throws Exception
+	 */
+	public void showGamesPlayedNotVotedForAUser(final String userName) throws Exception {
+		final List<Game> playedGames = this.collectionService.getUserPlayedGames(userName);
+		final List<Game> votedGames = this.collectionService.getUserVotedGames(userName);
+		final Map<Long, String> playedGamesMap = this.gamesListToMap(playedGames);
+		this.removeGamesInListFromMap(playedGamesMap, votedGames);
+		this.showGames(playedGamesMap);
+	}
+
+	/**
 	 * Transforms a list of games in a map of games.
 	 * 
 	 * @param games List of games to transform.
