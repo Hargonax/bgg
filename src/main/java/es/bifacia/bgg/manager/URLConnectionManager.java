@@ -1,4 +1,4 @@
-package es.bifacia.bgg.connection;
+package es.bifacia.bgg.manager;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,8 +8,19 @@ import java.net.URL;
 public class URLConnectionManager {
 	private static final String GET_METHOD = "GET";
 	private static final int SUCCESS_STATUS = 200;
-	private static final int RETRY_STATUS = 201;
+	private static final int RETRY_STATUS = 202;
 
+	public URLConnectionManager() {
+		super();
+	}
+
+	/**
+	 * Does a GET request.
+	 * 
+	 * @param stringURL URL to where to send the request.
+	 * @return Response obtained from the request.
+	 * @throws Exception
+	 */
 	public String doGet(final String stringURL) throws Exception {
 		String response = null;
 		HttpURLConnection connection = null;
@@ -22,8 +33,11 @@ public class URLConnectionManager {
 				int status = connection.getResponseCode();
 				if (status != RETRY_STATUS) {
 					retry = false;
-				} else if (status == SUCCESS_STATUS) {
-					response = this.getResponse(connection);
+					if (status == SUCCESS_STATUS) {
+						response = this.getResponse(connection);
+					}
+				} else {
+					Thread.sleep(500);
 				}
 			}
 		} catch (Exception ex) {

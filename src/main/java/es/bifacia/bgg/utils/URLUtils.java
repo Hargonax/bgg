@@ -11,7 +11,7 @@ public abstract class URLUtils {
 	 * @param parameters List of parameters to add.
 	 * @return URL enriched.
 	 */
-	public String addParametersToURL(final String url, final String... parameters) {
+	public static String addParametersToURL(final String url, final String... parameters) {
 		String newURL = url;
 		if (parameters != null && parameters.length > 0) {
 			newURL += START_OF_PARAMETERS;

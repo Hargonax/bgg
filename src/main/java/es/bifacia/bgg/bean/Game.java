@@ -9,6 +9,7 @@ package es.bifacia.bgg.bean;
 public class Game {
 	public long id;
 	public String name;
+	public Integer year;
 
 	public Game() {
 		super();
@@ -32,6 +33,14 @@ public class Game {
 
 	public String toString() {
 		return "ID: " + this.id + "   -   Game: " + this.name;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
 	}
 
 }
