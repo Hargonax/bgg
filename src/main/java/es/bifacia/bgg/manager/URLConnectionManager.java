@@ -35,6 +35,8 @@ public class URLConnectionManager {
 					retry = false;
 					if (status == SUCCESS_STATUS) {
 						response = this.getResponse(connection);
+					} else {
+						System.out.println("Response code not expected: " + connection.getResponseCode());
 					}
 				} else {
 					Thread.sleep(500);
