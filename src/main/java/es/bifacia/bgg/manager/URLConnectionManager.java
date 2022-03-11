@@ -39,7 +39,7 @@ public class URLConnectionManager {
 						System.out.println("Response code not expected: " + connection.getResponseCode());
 					}
 				} else {
-					Thread.sleep(500);
+					Thread.sleep(2000);
 				}
 			}
 		} catch (Exception ex) {

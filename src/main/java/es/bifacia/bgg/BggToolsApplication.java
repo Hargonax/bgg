@@ -22,9 +22,10 @@ public class BggToolsApplication {
 
 	@Bean
 	public void start() throws Exception {
-		this.mainService.showGamesPlayedNotVotedForAUser(Users.REUNER);
-//		this.mainService.showGamesNotPlayedFromUserCollection(Users.REUNER, Users.DIANA);
-//		this.mainService.showGamesAUserWantsToPlayFromUserCollection(Users.RUBA, Users.REUNER);
+//		this.mainService.showGamesPlayedNotVotedForAUser(Users.REUNER);
+//		this.mainService.showGamesNotPlayedFromUserCollection(Users.REUNER, Users.MACKLAU);
+		this.mainService.showGamesAUserWantsToPlayFromUserCollection(Users.REUNER, Users.GUILLE_SORIA);
+//		this.mainService.showGamesInWantToPlayByYear(Users.REUNER);
 	}
 
 }

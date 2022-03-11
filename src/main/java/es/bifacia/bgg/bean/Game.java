@@ -6,7 +6,7 @@ package es.bifacia.bgg.bean;
  * @author alejandro
  *
  */
-public class Game {
+public class Game implements Comparable<Game> {
 	public long id;
 	public String name;
 	public Integer year;
@@ -42,5 +42,13 @@ public class Game {
 	public void setYear(Integer year) {
 		this.year = year;
 	}
+	 
+	  @Override
+	  public int compareTo(Game game) {
+	    if (name == null || game.getName() == null) {
+	      return 0;
+	    }
+	    return this.name.compareTo(game.getName());
+	  }
 
 }

@@ -31,5 +31,14 @@ public interface MainService {
 	 * @throws Exception
 	 */
 	void showGamesPlayedNotVotedForAUser(final String userName) throws Exception;
+	
+	/**
+	 * Shows the games in the want to play of a user ordered by year.
+	 * 
+	 * @param userName User name of the user for which we are going to sort the want
+	 *                 to play list.
+	 * @throws Exception
+	 */
+	void showGamesInWantToPlayByYear(final String userName) throws Exception;
 
 }

@@ -15,6 +15,8 @@ import es.bifacia.bgg.service.MainService;
 
 @Service
 public class MainServiceImpl implements MainService {
+	public static final String RED_BOLD = "\033[1;31m"; // RED
+	public static final String RESET = "\033[0m";
 
 	@Autowired
 	private CollectionService collectionService;
@@ -30,7 +32,7 @@ public class MainServiceImpl implements MainService {
 			throws Exception {
 		final List<Game> collection = this.collectionService.getUserOwnedGamesWithoutExpansions(collectionOwner);
 		final List<Game> votedGames = this.collectionService.getUserVotedGames(userWithVotedGames);
-		final Map<Long, String> ownedGamesMap = this.gamesListToMap(collection);
+		final Map<Long, Game> ownedGamesMap = this.gamesListToMap(collection);
 		this.removeGamesInListFromMap(ownedGamesMap, votedGames);
 		this.showGames(ownedGamesMap);
 	}
@@ -47,8 +49,8 @@ public class MainServiceImpl implements MainService {
 			throws Exception {
 		final List<Game> collection = this.collectionService.getUserOwnedGamesWithoutExpansions(collectionOwner);
 		final List<Game> wantToPlayGames = this.collectionService.getUserWantToPlayGames(userWantsToPlay);
-		final Map<Long, String> ownedGamesMap = this.gamesListToMap(collection);
-		final List<String> matchedGames = this.getMatchedGames(ownedGamesMap, wantToPlayGames);
+		final Map<Long, Game> ownedGamesMap = this.gamesListToMap(collection);
+		final List<Game> matchedGames = this.getMatchedGames(ownedGamesMap, wantToPlayGames);
 		this.showGames(matchedGames);
 	}
 
@@ -62,9 +64,59 @@ public class MainServiceImpl implements MainService {
 	public void showGamesPlayedNotVotedForAUser(final String userName) throws Exception {
 		final List<Game> playedGames = this.collectionService.getUserPlayedGames(userName);
 		final List<Game> votedGames = this.collectionService.getUserVotedGames(userName);
-		final Map<Long, String> playedGamesMap = this.gamesListToMap(playedGames);
+		final Map<Long, Game> playedGamesMap = this.gamesListToMap(playedGames);
 		this.removeGamesInListFromMap(playedGamesMap, votedGames);
 		this.showGames(playedGamesMap);
+	}
+
+	/**
+	 * Shows the games in the want to play of a user ordered by year.
+	 * 
+	 * @param userName User name of the user for which we are going to sort the want
+	 *                 to play list.
+	 * @throws Exception
+	 */
+	public void showGamesInWantToPlayByYear(final String userName) throws Exception {
+		final List<Game> wantToPlayGames = this.collectionService.getUserWantToPlayGames(userName);
+		final Map<Integer, List<Game>> gamesByYear = this.createMapOfGamesByPublishedYear(wantToPlayGames);
+		for (int i = -1; i < 2035; i++) {
+			if (gamesByYear.containsKey(i)) {
+				final List<Game> games = gamesByYear.get(i);
+				if (i == -1) {
+					System.out.println(RED_BOLD + "Año desconocido (" + games.size() + ")" + RESET);
+				} else {
+					System.out.println(RED_BOLD + i + "(" + games.size() + ")" + RESET);
+				}
+				this.showGames(games);
+			}
+		}
+	}
+
+	/**
+	 * Create a map of games separated by publication year.
+	 * 
+	 * @param games List of games to sort.
+	 * @return Map of games by year.
+	 */
+	private Map<Integer, List<Game>> createMapOfGamesByPublishedYear(final List<Game> games) {
+		final Map<Integer, List<Game>> map = new HashMap<>();
+		if (games != null && !games.isEmpty()) {
+			games.stream().forEach((game) -> {
+				int year = -1;
+				if (game.getYear() != null) {
+					year = game.getYear();
+				}
+				List<Game> yearGames = null;
+				if (map.containsKey(year)) {
+					yearGames = map.get(year);
+				} else {
+					yearGames = new ArrayList<>();
+					map.put(year, yearGames);
+				}
+				yearGames.add(game);
+			});
+		}
+		return map;
 	}
 
 	/**
@@ -73,10 +125,10 @@ public class MainServiceImpl implements MainService {
 	 * @param games List of games to transform.
 	 * @return Map of games.
 	 */
-	private Map<Long, String> gamesListToMap(final List<Game> games) {
-		final Map<Long, String> gamesMap = new HashMap<>();
+	private Map<Long, Game> gamesListToMap(final List<Game> games) {
+		final Map<Long, Game> gamesMap = new HashMap<>();
 		for (final Game game : games) {
-			gamesMap.put(game.getId(), game.getName());
+			gamesMap.put(game.getId(), game);
 		}
 		return gamesMap;
 	}
@@ -87,7 +139,7 @@ public class MainServiceImpl implements MainService {
 	 * @param gamesMap Map of games.
 	 * @param games    List of games.
 	 */
-	private void removeGamesInListFromMap(final Map<Long, String> gamesMap, final List<Game> games) {
+	private void removeGamesInListFromMap(final Map<Long, Game> gamesMap, final List<Game> games) {
 		games.stream().forEach((game) -> {
 			if (gamesMap.containsKey(game.getId())) {
 				gamesMap.remove(game.getId());
@@ -103,11 +155,11 @@ public class MainServiceImpl implements MainService {
 	 * @param games    List of games to match.
 	 * @return List of matched games.
 	 */
-	private List<String> getMatchedGames(final Map<Long, String> gamesMap, final List<Game> games) {
-		final List<String> matchedGames = new ArrayList<>();
+	private List<Game> getMatchedGames(final Map<Long, Game> gamesMap, final List<Game> games) {
+		final List<Game> matchedGames = new ArrayList<>();
 		games.stream().forEach((game) -> {
 			if (gamesMap.containsKey(game.getId())) {
-				matchedGames.add(game.getName());
+				matchedGames.add(game);
 			}
 		});
 		return matchedGames;
@@ -118,8 +170,8 @@ public class MainServiceImpl implements MainService {
 	 * 
 	 * @param gamesMap Map with the games to show.
 	 */
-	private void showGames(final Map<Long, String> gamesMap) {
-		List<String> list = new ArrayList<>(gamesMap.values());
+	private void showGames(final Map<Long, Game> gamesMap) {
+		List<Game> list = new ArrayList<>(gamesMap.values());
 		this.showGames(list);
 	}
 
@@ -128,12 +180,12 @@ public class MainServiceImpl implements MainService {
 	 * 
 	 * @param games List with the games to show.
 	 */
-	private void showGames(final List<String> games) {
+	private void showGames(final List<Game> games) {
 		Collections.sort(games);
-		games.stream().forEach((gameName) -> {
-			System.out.println(gameName);
+		games.stream().forEach((game) -> {
+			System.out.println(game.getName());
 		});
-
+		System.out.println();
 	}
 
 }
