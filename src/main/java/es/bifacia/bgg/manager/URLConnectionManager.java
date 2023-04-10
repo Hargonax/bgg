@@ -9,6 +9,7 @@ public class URLConnectionManager {
 	private static final String GET_METHOD = "GET";
 	private static final int SUCCESS_STATUS = 200;
 	private static final int RETRY_STATUS = 202;
+	private static final int TOO_MANY_REQUESTS_STATUS = 429;
 
 	public URLConnectionManager() {
 		super();
@@ -31,7 +32,7 @@ public class URLConnectionManager {
 				connection = (HttpURLConnection) url.openConnection();
 				connection.setRequestMethod(GET_METHOD);
 				int status = connection.getResponseCode();
-				if (status != RETRY_STATUS) {
+				if (status != RETRY_STATUS && status != TOO_MANY_REQUESTS_STATUS) {
 					retry = false;
 					if (status == SUCCESS_STATUS) {
 						response = this.getResponse(connection);
