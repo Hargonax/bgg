@@ -41,4 +41,12 @@ public interface MainService {
 	 */
 	void showGamesInWantToPlayByYear(final String userName) throws Exception;
 
+	/**
+	 * Generates an Excel file with the collection of all the users passed in the array.
+	 * @param users Array of users.
+	 * @param usersCollectionExcelPath Path of the Excel file where we want to store the users collection.
+	 * @throws Exception
+	 */
+	void exportUsersCollectionToExcel(final String[] users, final String usersCollectionExcelPath) throws Exception;
+
 }

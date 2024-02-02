@@ -16,6 +16,7 @@
 	<description>BGG tools and functionalities</description>
 	<properties>
 		<java.version>11</java.version>
+		<poi.version>5.2.5</poi.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -31,6 +32,16 @@
 		<dependency>
 			<groupId>org.jdom</groupId>
 			<artifactId>jdom2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
 		</dependency>
 	</dependencies>
 

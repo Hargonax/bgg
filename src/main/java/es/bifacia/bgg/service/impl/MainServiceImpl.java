@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import es.bifacia.bgg.bean.GameOwners;
+import es.bifacia.bgg.service.excel.ExcelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ public class MainServiceImpl implements MainService {
 
 	@Autowired
 	private CollectionService collectionService;
+
+	@Autowired
+	private ExcelService excelService;
 
 	/**
 	 * Shows all the games a user has not played from a user owned games.
@@ -186,6 +191,44 @@ public class MainServiceImpl implements MainService {
 			System.out.println(game.getName());
 		});
 		System.out.println();
+	}
+
+	/**
+	 * Generates an Excel file with the collection of all the users passed in the array.
+	 * @param users Array of users.
+	 * @param usersCollectionExcelPath Path of the Excel file where we want to store the users collection.
+	 * @throws Exception
+	 */
+	public void exportUsersCollectionToExcel(final String[] users, final String usersCollectionExcelPath) throws Exception {
+		final Map<Long, GameOwners> gamesOwnersMap = getGamesOwnersMap(users);
+		excelService.createGamesOwnersExcel(gamesOwnersMap, usersCollectionExcelPath);
+	}
+
+	private Map<Long, GameOwners> getGamesOwnersMap(final String[] users) throws Exception {
+		final Map<Long, GameOwners> gamesOwnersMap = new HashMap<>();
+		for (int i = 0; i < users.length; i++) {
+			final String user = users[i];
+			final List<Game> collection = collectionService.getUserOwnedGamesWithoutExpansions(user);
+			if (collection != null && !collection.isEmpty()) {
+				addUserCollectionsToGamesOwnersMap(collection, gamesOwnersMap, user);
+				System.out.println(user + " collection added.");
+			}
+		}
+		return gamesOwnersMap;
+	}
+
+	private void addUserCollectionsToGamesOwnersMap(List<Game> collection, final Map<Long, GameOwners> gamesOwnersMap, final String owner) {
+		collection.forEach(g -> {
+			final long gameID = g.getId();
+			if (gamesOwnersMap.containsKey(gameID)) {
+				final List<String> owners = gamesOwnersMap.get(gameID).getOwners();
+				owners.add(owner);
+			} else {
+				final List<String> owners = new ArrayList<>();
+				owners.add(owner);
+				gamesOwnersMap.put(gameID, new GameOwners(g, owners));
+			}
+		});
 	}
 
 }

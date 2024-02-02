@@ -1,5 +1,6 @@
 package es.bifacia.bgg;
 
+import es.bifacia.bgg.service.excel.impl.ExcelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ import es.bifacia.bgg.utils.Users;
 @SpringBootApplication
 @ComponentScan({"es.bifacia.bgg"})
 public class BggToolsApplication {
+	final String[] users = new String[]{"almu_cali", Users.ANMA, Users.DIANA, "Eris3_14", Users.GABRIEL_TRUJILLO, "juanmacastillo", "llamaradas", "mattiuskas", Users.REUNER, Users.Raxar};
 
 	@Autowired
 	private MainService mainService;
@@ -22,10 +24,12 @@ public class BggToolsApplication {
 
 	@Bean
 	public void start() throws Exception {
-//		this.mainService.showGamesPlayedNotVotedForAUser(Users.REUNER);
-		this.mainService.showGamesNotPlayedFromUserCollection(Users.REUNER, Users.VELASCO);
-//		this.mainService.showGamesAUserWantsToPlayFromUserCollection(Users.REUNER, Users.GUILLE_SORIA);
-//		this.mainService.showGamesInWantToPlayByYear(Users.REUNER);
+//		mainService.showGamesPlayedNotVotedForAUser(Users.REUNER);
+//		mainService.showGamesNotPlayedFromUserCollection(Users.REUNER, Users.Raxar);
+//		mainService.showGamesAUserWantsToPlayFromUserCollection(Users.REUNER, Users.DUN_DARACH);
+//		mainService.showGamesInWantToPlayByYear(Users.REUNER);
+		mainService.exportUsersCollectionToExcel(users, ExcelServiceImpl.GAMES_OWNERS_FILE_PATH);
+		System.out.println("Execution finished");
 	}
 
 }
