@@ -231,4 +231,29 @@ public class MainServiceImpl implements MainService {
 		});
 	}
 
+	/**
+	 * Shows the games that a user wants to play from a group of collections from different users.
+	 * @param users Users with the collective collection.
+	 * @param user User we are taking the want to play list from.
+	 * @throws Exception
+	 */
+	@Override
+	public void showGamesInUserWantToPlayInUsersCollectiveCollection(final String[] users, final String user) throws Exception {
+		final Map<Long, GameOwners> gamesOwnersMap = getGamesOwnersMap(users);
+		final List<Game> wantToPlayGames = this.collectionService.getUserWantToPlayGames(user);
+		wantToPlayGames.forEach(g -> {
+			if (gamesOwnersMap.containsKey(g.getId())) {
+				String ownersAsString = "";
+				final List<String> owners = gamesOwnersMap.get(g.getId()).getOwners();
+				for (final String owner : owners) {
+					if (!ownersAsString.isEmpty()) {
+						ownersAsString += ", ";
+					}
+					ownersAsString += owner;
+				}
+				System.out.println(g.getName() + "   -    ");
+			}
+		});
+	}
+
 }

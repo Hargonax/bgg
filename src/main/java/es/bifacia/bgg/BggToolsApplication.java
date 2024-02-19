@@ -13,7 +13,7 @@ import es.bifacia.bgg.utils.Users;
 @SpringBootApplication
 @ComponentScan({"es.bifacia.bgg"})
 public class BggToolsApplication {
-	final String[] users = new String[]{"almu_cali", Users.ANMA, Users.DIANA, "Eris3_14", Users.GABRIEL_TRUJILLO, "juanmacastillo", "llamaradas", "mattiuskas", Users.REUNER, Users.Raxar};
+	final String[] users = new String[]{"almu_cali", Users.ANMA, Users.DIANA, "Eris3_14", Users.GABRIEL_TRUJILLO, "juanmacastillo", "llamaradas", "mattiuskas", Users.Raxar};
 
 	@Autowired
 	private MainService mainService;
@@ -28,7 +28,8 @@ public class BggToolsApplication {
 //		mainService.showGamesNotPlayedFromUserCollection(Users.REUNER, Users.Raxar);
 //		mainService.showGamesAUserWantsToPlayFromUserCollection(Users.REUNER, Users.DUN_DARACH);
 //		mainService.showGamesInWantToPlayByYear(Users.REUNER);
-		mainService.exportUsersCollectionToExcel(users, ExcelServiceImpl.GAMES_OWNERS_FILE_PATH);
+//		mainService.exportUsersCollectionToExcel(users, ExcelServiceImpl.GAMES_OWNERS_FILE_PATH);
+		mainService.showGamesInUserWantToPlayInUsersCollectiveCollection(users, Users.REUNER);
 		System.out.println("Execution finished");
 	}
 

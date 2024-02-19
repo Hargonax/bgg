@@ -49,4 +49,12 @@ public interface MainService {
 	 */
 	void exportUsersCollectionToExcel(final String[] users, final String usersCollectionExcelPath) throws Exception;
 
+	/**
+	 * Shows the games that a user wants to play from a group of collections from different users.
+	 * @param users Users with the collective collection.
+	 * @param user User we are taking the want to play list from.
+	 * @throws Exception
+	 */
+	void showGamesInUserWantToPlayInUsersCollectiveCollection(final String[] users, final String user) throws Exception;
+
 }
