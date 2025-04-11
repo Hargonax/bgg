@@ -1,13 +1,10 @@
 package es.bifacia.bgg.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import es.bifacia.bgg.bean.GameOwners;
 import es.bifacia.bgg.service.excel.ExcelService;
+import es.bifacia.bgg.utils.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +16,7 @@ import es.bifacia.bgg.service.MainService;
 public class MainServiceImpl implements MainService {
 	public static final String RED_BOLD = "\033[1;31m"; // RED
 	public static final String RESET = "\033[0m";
+	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
 	@Autowired
 	private CollectionService collectionService;
@@ -210,7 +208,8 @@ public class MainServiceImpl implements MainService {
 			final String user = users[i];
 			final List<Game> collection = collectionService.getUserOwnedGamesWithoutExpansions(user);
 			if (collection != null && !collection.isEmpty()) {
-				addUserCollectionsToGamesOwnersMap(collection, gamesOwnersMap, user);
+				final String transalatedName = translateUserName(user);
+				addUserCollectionsToGamesOwnersMap(collection, gamesOwnersMap, transalatedName);
 				System.out.println(user + " collection added.");
 			}
 		}
@@ -251,9 +250,67 @@ public class MainServiceImpl implements MainService {
 					}
 					ownersAsString += owner;
 				}
-				System.out.println(g.getName() + "   -    ");
+				System.out.println(g.getName() + "   -    " + ownersAsString);
 			}
 		});
+	}
+
+	/**
+	 * Shows the games played by the user each year.
+	 * @param user User who has played the games.
+	 * @throws Exception
+	 */
+	public void showGamesPlayedEachYear(final String user)
+			throws Exception {
+		final List<Game> votedGames = this.collectionService.getUserVotedGames(user);
+		final Map<Integer, List<String>> gamesByYearMap = new TreeMap<>();
+		votedGames.forEach(g -> {
+			final Integer year = g.getYear();
+			if (year != null) {
+				List<String> games = null;
+				if (gamesByYearMap.containsKey(year)) {
+					games = gamesByYearMap.get(year);
+				} else {
+					games = new ArrayList<>();
+					gamesByYearMap.put(year, games);
+				}
+				games.add(g.getName());
+			}
+		});
+		for (var entry : gamesByYearMap.entrySet()) {
+			Collections.sort(entry.getValue());
+		}
+		for (var entry : gamesByYearMap.entrySet()) {
+			System.out.println(RED_BOLD + entry.getKey() + " (" + entry.getValue().size() + ")" + RESET);
+			entry.getValue().forEach(g -> {
+				System.out.println(g);
+			});
+			System.out.println();
+		}
+	}
+
+	private String translateUserName(final String userName) {
+		String transalatedName = userName;
+		if (userName.equals(Users.REUNER)) {
+			transalatedName = "Jano";
+		} else if (userName.equals(Users.ALMU)) {
+			transalatedName = "Almu";
+		} else if (userName.equals(Users.ERIS)) {
+			transalatedName = "PiVic";
+		} else if (userName.equals(Users.GABRIEL_TRUJILLO)) {
+			transalatedName = "Gabi";
+		} else if (userName.equals(Users.EVA)) {
+			transalatedName = "Eva";
+		} else if (userName.equals(Users.MAKROSS)) {
+			transalatedName = "Marcos";
+		} else if (userName.equals(Users.JUAN_CARLOS)) {
+			transalatedName = "Juancar";
+		} else if (userName.equals("Beardragon")) {
+			transalatedName = "Alberto";
+		} else if (userName.equals("el_italiano")) {
+			transalatedName = "Gio";
+		}
+		return transalatedName;
 	}
 
 }

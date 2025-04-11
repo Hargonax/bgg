@@ -57,4 +57,11 @@ public interface MainService {
 	 */
 	void showGamesInUserWantToPlayInUsersCollectiveCollection(final String[] users, final String user) throws Exception;
 
+	/**
+	 * Shows the games played by the user each year.
+	 * @param user User who has played the games.
+	 * @throws Exception
+	 */
+	void showGamesPlayedEachYear(final String user) throws Exception;
+
 }
