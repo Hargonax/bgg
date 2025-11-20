@@ -290,27 +290,31 @@ public class MainServiceImpl implements MainService {
 	}
 
 	private String translateUserName(final String userName) {
-		String transalatedName = userName;
+		String translatedName = userName;
 		if (userName.equals(Users.REUNER)) {
-			transalatedName = "Jano";
+			translatedName = "Jano";
 		} else if (userName.equals(Users.ALMU)) {
-			transalatedName = "Almu";
+			translatedName = "Almu";
 		} else if (userName.equals(Users.ERIS)) {
-			transalatedName = "PiVic";
+			translatedName = "Pi & Vic";
 		} else if (userName.equals(Users.GABRIEL_TRUJILLO)) {
-			transalatedName = "Gabi";
+			translatedName = "Gabi";
 		} else if (userName.equals(Users.EVA)) {
-			transalatedName = "Eva";
+			translatedName = "Eva";
 		} else if (userName.equals(Users.MAKROSS)) {
-			transalatedName = "Marcos";
+			translatedName = "Marcos";
 		} else if (userName.equals(Users.JUAN_CARLOS)) {
-			transalatedName = "Juancar";
+			translatedName = "Juancar";
 		} else if (userName.equals("Beardragon")) {
-			transalatedName = "Alberto";
+			translatedName = "Alberto";
 		} else if (userName.equals("el_italiano")) {
-			transalatedName = "Gio";
+			translatedName = "Gio";
+		} else if (userName.equals("mouseover")) {
+			translatedName = "Rafa";
+		} else if (userName.equals("guifa79")) {
+			translatedName = "Azael";
 		}
-		return transalatedName;
+		return translatedName;
 	}
 
 }

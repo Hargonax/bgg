@@ -7,6 +7,7 @@ import java.net.URL;
 
 public class URLConnectionManager {
 	private static final String GET_METHOD = "GET";
+	private static final String BEARER_TOKEN = "deb0ca8b-c7a3-4cc9-a95a-47bf626b8f11";
 	private static final int SUCCESS_STATUS = 200;
 	private static final int RETRY_STATUS = 202;
 	private static final int TOO_MANY_REQUESTS_STATUS = 429;
@@ -27,10 +28,12 @@ public class URLConnectionManager {
 		HttpURLConnection connection = null;
 		try {
 			boolean retry = true;
+			final String authorization = "Bearer " + BEARER_TOKEN;
 			while (retry) {
 				URL url = new URL(stringURL);
 				connection = (HttpURLConnection) url.openConnection();
 				connection.setRequestMethod(GET_METHOD);
+				connection.setRequestProperty("Authorization", authorization);
 				int status = connection.getResponseCode();
 				if (status != RETRY_STATUS && status != TOO_MANY_REQUESTS_STATUS) {
 					retry = false;
