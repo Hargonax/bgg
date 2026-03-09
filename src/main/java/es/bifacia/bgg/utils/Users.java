@@ -1,9 +1,11 @@
 package es.bifacia.bgg.utils;
 
 public abstract class Users {
+	public static final String ALLARO = "allaro1";
 	public static final String ALMU = "almu_cali";
 	public static final String ANMA = "Anma";
 	public static final String CARLOS_SAN = "Lankelote";
+	public static final String CESAR = "cesar_vk";
 	public static final String DAVID_IDJ = "Txang";
 	public static final String DIANA = "didiita";
 	public static final String DUN_DARACH = "stackface";

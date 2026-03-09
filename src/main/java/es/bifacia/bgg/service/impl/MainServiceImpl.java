@@ -313,6 +313,22 @@ public class MainServiceImpl implements MainService {
 			translatedName = "Rafa";
 		} else if (userName.equals("guifa79")) {
 			translatedName = "Azael";
+		} else if (userName.equals("llamaradas")) {
+			translatedName = "Llama";
+		} else if (userName.equals("Mekhi88")) {
+			translatedName = "Carlos";
+		} else if (userName.equals("reydediamantes")) {
+			translatedName = "Nelo";
+		} else if (userName.equals("allaro1")) {
+			translatedName = "Allaro";
+		} else if (userName.equals("Tasartito")) {
+			translatedName = "Tas";
+		} else if (userName.equals("malarrama")) {
+			translatedName = "Ismael";
+		} else if (userName.equals("Anaskela")) {
+			translatedName = "Julio";
+		} else if (userName.equals("Quierovacaciones")) {
+			translatedName = "Rosa";
 		}
 		return translatedName;
 	}
