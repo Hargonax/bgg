@@ -305,6 +305,24 @@ public class MainServiceImpl implements MainService {
 			translatedName = "Marcos";
 		} else if (userName.equals(Users.JUAN_CARLOS)) {
 			translatedName = "Juancar";
+		} else if (userName.equals(Users.FERRIS)) {
+			translatedName = "Ferris";
+		} else if (userName.equals(Users.DIANA)) {
+			translatedName = "Diana";
+		} else if (userName.equals(Users.CESAR)) {
+			translatedName = "César";
+		} else if (userName.equals(Users.WIZZY)) {
+			translatedName = "Wizzy";
+		} else if (userName.equals(Users.MAEGLOR)) {
+			translatedName = "Paco";
+		} else if (userName.equals(Users.LUISIN)) {
+			translatedName = "Luisín";
+		} else if (userName.equals(Users.MATEO)) {
+			translatedName = "Mateo";
+		} else if (userName.equals(Users.MAKROSS)) {
+			translatedName = "Marcos";
+		} else if (userName.equals(Users.SERGIO_REDONDO)) {
+			translatedName = "Sergio";
 		} else if (userName.equals("Beardragon")) {
 			translatedName = "Alberto";
 		} else if (userName.equals("el_italiano")) {
@@ -319,7 +337,7 @@ public class MainServiceImpl implements MainService {
 			translatedName = "Carlos";
 		} else if (userName.equals("reydediamantes")) {
 			translatedName = "Nelo";
-		} else if (userName.equals("allaro1")) {
+		} else if (userName.equals(Users.ALLARO)) {
 			translatedName = "Allaro";
 		} else if (userName.equals("Tasartito")) {
 			translatedName = "Tas";
@@ -329,6 +347,18 @@ public class MainServiceImpl implements MainService {
 			translatedName = "Julio";
 		} else if (userName.equals("Quierovacaciones")) {
 			translatedName = "Rosa";
+		} else if (userName.equals("elqueaprende")) {
+			translatedName = "Richi";
+		} else if (userName.equals("mouseover")) {
+			translatedName = "Rafa";
+		} else if (userName.equals("makross")) {
+			translatedName = "Marcos";
+		} else if (userName.equals("klaymen44")) {
+			translatedName = "Aitor";
+		} else if (userName.equals("metakurgan")) {
+			translatedName = "Perikles";
+		} else if (userName.equals("Ogliath")) {
+			translatedName = "Pablo";
 		}
 		return translatedName;
 	}
