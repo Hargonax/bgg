@@ -28,8 +28,8 @@ public class BggToolsApplication {
 
 	@Bean
 	public void start() throws Exception {
-//		mainService.showGamesPlayedNotVotedForAUser(Users.REUNER);
-		mainService.showGamesNotPlayedFromUserCollection(Users.REUNER, Users.DON_BORCH);
+		mainService.showGamesPlayedNotVotedForAUser(Users.REUNER);
+//		mainService.showGamesNotPlayedFromUserCollection(Users.REUNER, Users.DUN_DARACH);
 //		mainService.showGamesAUserWantsToPlayFromUserCollection(Users.REUNER, Users.GABRIEL_TRUJILLO);
 //		mainService.showGamesInWantToPlayByYear(Users.REUNER);
 		Arrays.sort(IDJ, String.CASE_INSENSITIVE_ORDER);
